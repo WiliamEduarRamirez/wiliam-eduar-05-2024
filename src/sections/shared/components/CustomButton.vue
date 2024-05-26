@@ -9,6 +9,7 @@
       props.class,
     ]"
     :disabled="props.disabled || props.loading"
+    v-bind="$attrs"
   >
     <span :class="['flex-1 flex items-center justify-center', props.loading ? 'invisible' : '']">
       <span

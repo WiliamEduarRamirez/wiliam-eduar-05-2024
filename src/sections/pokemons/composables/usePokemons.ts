@@ -11,13 +11,12 @@ export function usePokemons() {
   const isLoading: Ref<boolean> = ref(true);
 
   function scrollHandler() {
-    isLoading.value = true;
-
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
 
     if (scrollTop + clientHeight >= scrollHeight) {
+      isLoading.value = true;
       pokemonStore.loadMorePokemons().finally(() => {
         isLoading.value = false;
       });

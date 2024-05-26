@@ -1,3 +1,9 @@
+
+export interface PokemonTypeWithColor {
+  name: string;
+  color: string;
+}
+
 export const pokemonTypeColors: { [key: string]: string } = {
   fire: '#F08030',
   water: '#6890F0',

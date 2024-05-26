@@ -49,6 +49,13 @@ export default {
         'dialog-lg': '1024px',
         'dialog-xl': '1440px',
       },
+      minHeight: {
+        '80vh': '80vh',
+      },
+      rotate: {
+        270: '270deg',
+        360: '360deg',
+      },
     },
   },
   plugins: [],

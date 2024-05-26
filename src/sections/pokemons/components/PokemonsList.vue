@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, Ref } from 'vue';
+import { onMounted, ref, Ref } from 'vue';
 import { ENV } from '@/shared/config/environment.ts';
 import { Pokemon } from '@/modules/pokemons/domain/Pokemon.ts';
 import { useTeamStore } from '@/sections/teams/stores/TeamStore.ts';
@@ -8,7 +8,11 @@ import { usePokemons } from '@/sections/pokemons/composables/usePokemons.ts';
 import PokemonCard from '@/sections/pokemons/components/PokemonCard.vue';
 import CustomDialog from '@/sections/shared/components/CustomDialog.vue';
 import CustomButton from '@/sections/shared/components/CustomButton.vue';
-import { CheckCircleIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/vue/24/solid';
+import {
+  CheckCircleIcon,
+  ArrowRightStartOnRectangleIcon,
+  ArrowUpCircleIcon,
+} from '@heroicons/vue/24/solid';
 import { useRouter } from 'vue-router';
 import CustomSpinner from '@/sections/shared/components/CustomSpinner.vue';
 
@@ -18,9 +22,12 @@ const teamStore = useTeamStore();
 const { teamPokemons } = storeToRefs(teamStore);
 
 const isDialogOpen: Ref<boolean> = ref(false);
+const showScrollButton = ref(false);
+const pokemonSelected = ref<Pokemon | null>(null);
 
 function selectPokemon(pokemon: Pokemon) {
   const index = teamPokemons.value.findIndex(p => p.id === pokemon.id);
+  pokemonSelected.value = pokemon;
   if (index === -1) {
     if (teamPokemons.value.length >= ENV.MAX_POKEMON_SELECTED) {
       openDialog();
@@ -43,9 +50,66 @@ function goToTeam() {
   router.push('/team');
   closeDialog();
 }
+
+function scrollTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function handleScroll() {
+  showScrollButton.value = window.scrollY > 100;
+}
+
+function removeAndReplacePokemon(pokemon: Pokemon) {
+  if (!pokemonSelected.value) return;
+  teamStore.removePokemon(pokemon);
+  teamStore.addPokemon(pokemonSelected.value);
+  closeDialog();
+}
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+  };
+});
 </script>
 
 <template>
+  <h1 class="text-center font-bold text-xl md:text-2xl lg:text-3xl text-primary mb-4">
+    Arma tu equipo Pokémon
+  </h1>
+  <h2 class="mb-4 text-base md:text-xl lg:text-2xl text-gray-500 font-medium">
+    Selecciona tus pokémons favoritos para armar tu equipo
+  </h2>
+  <div class="mb-4 w-full flex flex-col md:flex-row items-center justify-between">
+    <h3 class="text-secondary font-medium text-base mb-2 md:mb-0">
+      Pokémons disponibles: {{ pokemons.length }}
+    </h3>
+    <CustomButton @click="() => router.push('/team')" color="secondary">
+      <template #default>Ver Equipo</template>
+      <template #endIcon>
+        <ArrowRightStartOnRectangleIcon />
+      </template>
+    </CustomButton>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-4 xl:gap-x-6 gap-y-6">
+    <template v-for="pokemon in pokemons" :key="pokemon.id">
+      <pokemon-card
+        :pokemon="pokemon"
+        :is-selected="teamPokemons.some(p => p.id === pokemon.id)"
+        @click="() => selectPokemon(pokemon)"
+      />
+    </template>
+  </div>
+  <div v-if="isLoading" class="mt-6 flex items-center justify-center">
+    <CustomSpinner color="primary" class="mr-3" />
+    <p>Cargando...</p>
+  </div>
+  <button
+    v-if="showScrollButton"
+    @click="scrollTop"
+    class="fixed right-3 bottom-24 bg-red-300 p-3 rounded-full"
+  >
+    <ArrowUpCircleIcon class="text-white w-10 h-10" />
+  </button>
   <CustomDialog
     :on-close="closeDialog"
     :is-open="isDialogOpen"
@@ -59,7 +123,11 @@ function goToTeam() {
         Tu equipo ya esta conformado por los siguientes pokémons:
       </h4>
       <ul>
-        <li v-for="pokemon in teamPokemons" :key="pokemon.id" class="flex items-center space-x-2">
+        <li
+          v-for="pokemon in teamPokemons"
+          :key="pokemon.id"
+          class="flex items-center space-x-2 py-1"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5 text-primary"
@@ -71,6 +139,12 @@ function goToTeam() {
             />
           </svg>
           <span class="text-gray-500 font-light capitalize">{{ pokemon.name }}</span>
+          <a
+            @click="() => removeAndReplacePokemon(pokemon)"
+            class="text-primary font-medium cursor-pointer hover:text-tertiary text-xs"
+          >
+            Remover y reemplazar
+          </a>
         </li>
       </ul>
       <div class="w-full text-center mt-4">
@@ -90,25 +164,6 @@ function goToTeam() {
       </div>
     </div>
   </CustomDialog>
-  <h1 class="text-center font-bold text-3xl text-primary mb-4">Arma tu equipo Pokémon</h1>
-  <h2 class="mb-4 text-2xl text-gray-500 font-medium">
-    Selecciona tus pokémons favoritos para armar tu equipo
-  </h2>
-  <!--  <h3 class="text-xl text-gray-500 font-medium">Desplázate hacia abajo para cargar más pokémons</h3>-->
-
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-6">
-    <template v-for="pokemon in pokemons" :key="pokemon.id">
-      <pokemon-card
-        :pokemon="pokemon"
-        :is-selected="teamPokemons.some(p => p.id === pokemon.id)"
-        @click="() => selectPokemon(pokemon)"
-      />
-    </template>
-  </div>
-  <div v-if="isLoading" class="mt-6 flex items-center justify-center">
-    <CustomSpinner color="primary" class="mr-3" />
-    <p>Cargando...</p>
-  </div>
 </template>
 
 <style scoped></style>

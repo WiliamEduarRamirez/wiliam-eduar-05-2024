@@ -4,7 +4,6 @@ export interface Pokemon {
   imageUrl: string;
   types: {
     name: string;
-    color: string;
   }[];
   abilities: string[];
   weight: number;
