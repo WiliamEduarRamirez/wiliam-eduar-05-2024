@@ -8,12 +8,21 @@ importers:
 
   .:
     dependencies:
+      '@heroicons/vue':
+        specifier: ^2.1.3
+        version: 2.1.3(vue@3.4.27(typescript@5.4.5))
       axios:
         specifier: ^1.7.2
         version: 1.7.2
+      chart.js:
+        specifier: ^4.4.3
+        version: 4.4.3
       pinia:
         specifier: ^2.1.7
         version: 2.1.7(typescript@5.4.5)(vue@3.4.27(typescript@5.4.5))
+      pinia-plugin-persistedstate:
+        specifier: ^3.2.1
+        version: 3.2.1(pinia@2.1.7(typescript@5.4.5)(vue@3.4.27(typescript@5.4.5)))
       vue:
         specifier: ^3.4.21
         version: 3.4.27(typescript@5.4.5)
@@ -21,6 +30,12 @@ importers:
         specifier: '4'
         version: 4.3.2(vue@3.4.27(typescript@5.4.5))
     devDependencies:
+      '@types/chart.js':
+        specifier: ^2.9.41
+        version: 2.9.41
+      '@types/node':
+        specifier: ^20.12.12
+        version: 20.12.12
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.10.0
         version: 7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5)
@@ -29,7 +44,7 @@ importers:
         version: 7.10.0(eslint@9.3.0)(typescript@5.4.5)
       '@vitejs/plugin-vue':
         specifier: ^5.0.4
-        version: 5.0.4(vite@5.2.11)(vue@3.4.27(typescript@5.4.5))
+        version: 5.0.4(vite@5.2.11(@types/node@20.12.12))(vue@3.4.27(typescript@5.4.5))
       '@vue/eslint-config-prettier':
         specifier: ^9.0.0
         version: 9.0.0(eslint@9.3.0)(prettier@3.2.5)
@@ -62,7 +77,7 @@ importers:
         version: 5.4.5
       vite:
         specifier: ^5.2.0
-        version: 5.2.11
+        version: 5.2.11(@types/node@20.12.12)
       vue-tsc:
         specifier: ^2.0.6
         version: 2.0.19(typescript@5.4.5)
@@ -246,6 +261,11 @@ packages:
     resolution: {integrity: sha512-niBqk8iwv96+yuTwjM6bWg8ovzAPF9qkICsGtcoa5/dmqcEMfdwNAX7+/OHcJHc7wj7XqPxH98oAHytFYlw6Sw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+  '@heroicons/vue@2.1.3':
+    resolution: {integrity: sha512-CP4ipIwFbV4NEn8ULUCN110wkV0wZq6dsViDL3HwgIh+jn5yQGlRm6QaRN+Mv+o+UsUBbRDei3Je/q0NZHf5Gg==}
+    peerDependencies:
+      vue: '>= 3'
+
   '@humanwhocodes/config-array@0.13.0':
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
     engines: {node: '>=10.10.0'}
@@ -282,6 +302,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@kurkle/color@0.3.2':
+    resolution: {integrity: sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -383,8 +406,14 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@types/chart.js@2.9.41':
+    resolution: {integrity: sha512-3dvkDvueckY83UyUXtJMalYoH6faOLkWQoaTlJgB4Djde3oORmNP0Jw85HtzTuXyliUHcdp704s0mZFQKio/KQ==}
+
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
+
+  '@types/node@20.12.12':
+    resolution: {integrity: sha512-eWLDGF/FOSPtAvEqeRAQ4C8LSA7M1I7i0ky1I8U7kD1J5ITyW3AsRhQrKVoWf5pFKZ2kILsEGJhsI9r93PYnOw==}
 
   '@typescript-eslint/eslint-plugin@7.10.0':
     resolution: {integrity: sha512-PzCr+a/KAef5ZawX7nbyNwBDtM1HdLIT53aSA2DDlxmxMngZ43O8SIePOeX8H5S+FHXeI6t97mTt/dDdzY4Fyw==}
@@ -604,6 +633,10 @@ packages:
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
+
+  chart.js@4.4.3:
+    resolution: {integrity: sha512-qK1gkGSRYcJzqrrzdR6a+I0vQ4/R+SoODXyAjscQ/4mzuNzySaMCd+hyVxitSY1+L2fjPD1Gbn+ibNqRmwQeLw==}
+    engines: {pnpm: '>=8'}
 
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
@@ -1005,6 +1038,9 @@ packages:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
 
+  moment@2.30.1:
+    resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
+
   ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
 
@@ -1092,6 +1128,11 @@ packages:
   pify@2.3.0:
     resolution: {integrity: sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==}
     engines: {node: '>=0.10.0'}
+
+  pinia-plugin-persistedstate@3.2.1:
+    resolution: {integrity: sha512-MK++8LRUsGF7r45PjBFES82ISnPzyO6IZx3CH5vyPseFLZCk1g2kgx6l/nW8pEBKxxd4do0P6bJw+mUSZIEZUQ==}
+    peerDependencies:
+      pinia: ^2.0.0
 
   pinia@2.1.7:
     resolution: {integrity: sha512-+C2AHFtcFqjPih0zpYuvof37SFxMQ7OEG2zV9jRI12i9BOy3YQVAHwdKtyyc8pDcDyIc33WCIsZaCFWU7WWxGQ==}
@@ -1309,6 +1350,9 @@ packages:
     resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
   update-browserslist-db@1.0.16:
     resolution: {integrity: sha512-KVbTxlBYlckhF5wgfyZXTWnMn7MMZjMu9XG8bPlliUOP9ThaF4QnhP8qrjrH7DRzHfSk0oQv1wToW+iA5GajEQ==}
@@ -1529,6 +1573,10 @@ snapshots:
 
   '@eslint/js@9.3.0': {}
 
+  '@heroicons/vue@2.1.3(vue@3.4.27(typescript@5.4.5))':
+    dependencies:
+      vue: 3.4.27(typescript@5.4.5)
+
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
@@ -1568,6 +1616,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
+
+  '@kurkle/color@0.3.2': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -1634,7 +1684,15 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.18.0':
     optional: true
 
+  '@types/chart.js@2.9.41':
+    dependencies:
+      moment: 2.30.1
+
   '@types/estree@1.0.5': {}
+
+  '@types/node@20.12.12':
+    dependencies:
+      undici-types: 5.26.5
 
   '@typescript-eslint/eslint-plugin@7.10.0(@typescript-eslint/parser@7.10.0(eslint@9.3.0)(typescript@5.4.5))(eslint@9.3.0)(typescript@5.4.5)':
     dependencies:
@@ -1717,9 +1775,9 @@ snapshots:
       '@typescript-eslint/types': 7.10.0
       eslint-visitor-keys: 3.4.3
 
-  '@vitejs/plugin-vue@5.0.4(vite@5.2.11)(vue@3.4.27(typescript@5.4.5))':
+  '@vitejs/plugin-vue@5.0.4(vite@5.2.11(@types/node@20.12.12))(vue@3.4.27(typescript@5.4.5))':
     dependencies:
-      vite: 5.2.11
+      vite: 5.2.11(@types/node@20.12.12)
       vue: 3.4.27(typescript@5.4.5)
 
   '@volar/language-core@2.2.5':
@@ -1903,6 +1961,10 @@ snapshots:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
+
+  chart.js@4.4.3:
+    dependencies:
+      '@kurkle/color': 0.3.2
 
   chokidar@3.6.0:
     dependencies:
@@ -2308,6 +2370,8 @@ snapshots:
 
   minipass@7.1.2: {}
 
+  moment@2.30.1: {}
+
   ms@2.1.2: {}
 
   muggle-string@0.4.1: {}
@@ -2377,6 +2441,10 @@ snapshots:
   picomatch@2.3.1: {}
 
   pify@2.3.0: {}
+
+  pinia-plugin-persistedstate@3.2.1(pinia@2.1.7(typescript@5.4.5)(vue@3.4.27(typescript@5.4.5))):
+    dependencies:
+      pinia: 2.1.7(typescript@5.4.5)(vue@3.4.27(typescript@5.4.5))
 
   pinia@2.1.7(typescript@5.4.5)(vue@3.4.27(typescript@5.4.5)):
     dependencies:
@@ -2599,6 +2667,8 @@ snapshots:
 
   typescript@5.4.5: {}
 
+  undici-types@5.26.5: {}
+
   update-browserslist-db@1.0.16(browserslist@4.23.0):
     dependencies:
       browserslist: 4.23.0
@@ -2611,12 +2681,13 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite@5.2.11:
+  vite@5.2.11(@types/node@20.12.12):
     dependencies:
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.18.0
     optionalDependencies:
+      '@types/node': 20.12.12
       fsevents: 2.3.3
 
   vue-demi@0.14.7(vue@3.4.27(typescript@5.4.5)):
