@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed, watch, onUnmounted } from 'vue';
 
 interface DialogProps {
   isOpen: boolean;
@@ -63,11 +63,11 @@ onMounted(() => {
     document.body.addEventListener('keydown', handleEscape);
     document.addEventListener('mousedown', handleClickOutside);
   }
+});
 
-  return () => {
-    document.body.removeEventListener('keydown', handleEscape);
-    document.removeEventListener('mousedown', handleClickOutside);
-  };
+onUnmounted(() => {
+  document.body.removeEventListener('keydown', handleEscape);
+  document.removeEventListener('mousedown', handleClickOutside);
 });
 </script>
 <template>

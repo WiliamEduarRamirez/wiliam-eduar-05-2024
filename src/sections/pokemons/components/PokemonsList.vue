@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, Ref } from 'vue';
+import { onMounted, onUnmounted, ref, Ref } from 'vue';
 import { ENV } from '@/shared/config/environment.ts';
 import { Pokemon } from '@/modules/pokemons/domain/Pokemon.ts';
 import { useTeamStore } from '@/sections/teams/stores/TeamStore.ts';
@@ -64,11 +64,12 @@ function removeAndReplacePokemon(pokemon: Pokemon) {
   teamStore.addPokemon(pokemonSelected.value);
   closeDialog();
 }
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
-  return () => {
-    window.removeEventListener('scroll', handleScroll);
-  };
+});
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
 });
 </script>
 

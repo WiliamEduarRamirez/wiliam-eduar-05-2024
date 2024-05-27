@@ -8,6 +8,7 @@ import { useRouter } from 'vue-router';
 import { useTeamStore } from '@/sections/teams/stores/TeamStore.ts';
 import { getPokemonTypesWithColors } from '@/modules/pokemons/application/getPokemonTypesWithColors.ts';
 import { PokemonTypeWithColor } from '@/modules/pokemons/domain/PokemonTypeWithColor.ts';
+import { usePokemonStatsChart } from '@/sections/teams/composables/usePokemonStatsChart.ts';
 
 const router = useRouter();
 const teamStore = useTeamStore();
@@ -17,7 +18,9 @@ const props = defineProps<{
   removeFromTeam: () => void;
 }>();
 
-const statsChart = ref<HTMLCanvasElement | null>(null);
+const { statsChart, setupChart } = usePokemonStatsChart({ type: 'radar' });
+
+/*const statsChart = ref<HTMLCanvasElement | null>(null);*/
 
 const pokemonTypes = computed<PokemonTypeWithColor[]>(() => {
   return getPokemonTypesWithColors(props.pokemon);
@@ -29,6 +32,9 @@ function redirectTeamDetail() {
 }
 
 onMounted(() => {
+  setupChart(props.pokemon);
+});
+/*onMounted(() => {
   if (statsChart.value) {
     const ctx = statsChart.value.getContext('2d');
     if (ctx) {
@@ -63,7 +69,7 @@ onMounted(() => {
       });
     }
   }
-});
+});*/
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-import { inject, onMounted, Ref, ref } from 'vue';
+import { inject, onBeforeMount, onUnmounted, Ref, ref } from 'vue';
 import { PokemonRepository } from '@/modules/pokemons/domain/PokemonRepository';
 import { usePokemonStore } from '@/sections/pokemons/stores/PokemonStore';
 import { storeToRefs } from 'pinia';
@@ -23,16 +23,18 @@ export function usePokemons() {
     }
   }
 
-  onMounted(() => {
+  /*Created*/
+  pokemonStore.listPokemons().finally(() => {
+    isLoading.value = false;
+  });
+  /*Created*/
+
+  onBeforeMount(() => {
     window.addEventListener('scroll', scrollHandler);
+  });
 
-    pokemonStore.listPokemons().finally(() => {
-      isLoading.value = false;
-    });
-
-    return () => {
-      window.removeEventListener('scroll', scrollHandler);
-    };
+  onUnmounted(() => {
+    window.removeEventListener('scroll', scrollHandler);
   });
 
   return {
