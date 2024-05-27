@@ -7,7 +7,7 @@ import CustomContainer from '@/sections/shared/components/CustomContainer.vue';
 <template>
   <div>
     <CustomNavbar />
-    <main class="bg-gray-100">
+    <main class="bg-gray-white md:bg-gray-100">
       <CustomContainer tag="div" class="pt-24 pb-8">
         <router-view />
       </CustomContainer>

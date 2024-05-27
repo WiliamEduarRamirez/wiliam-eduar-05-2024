@@ -6,7 +6,7 @@ import { storeToRefs } from 'pinia';
 export function usePokemons() {
   const pokemonRepository = inject<PokemonRepository>('pokemonRepository')!;
   const pokemonStore = usePokemonStore(pokemonRepository);
-  const { pokemons } = storeToRefs(pokemonStore);
+  const { pokemons, maxPokemonLimit } = storeToRefs(pokemonStore);
 
   const isLoading: Ref<boolean> = ref(true);
 
@@ -15,7 +15,7 @@ export function usePokemons() {
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
 
-    if (scrollTop + clientHeight >= scrollHeight) {
+    if (scrollTop + clientHeight >= scrollHeight && !isLoading.value && !maxPokemonLimit.value) {
       isLoading.value = true;
       pokemonStore.loadMorePokemons().finally(() => {
         isLoading.value = false;
@@ -38,5 +38,6 @@ export function usePokemons() {
   return {
     pokemons,
     isLoading,
+    maxPokemonLimit,
   };
 }

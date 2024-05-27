@@ -17,7 +17,7 @@ import { useRouter } from 'vue-router';
 import CustomSpinner from '@/sections/shared/components/CustomSpinner.vue';
 
 const router = useRouter();
-const { pokemons, isLoading } = usePokemons();
+const { pokemons, isLoading, maxPokemonLimit } = usePokemons();
 const teamStore = useTeamStore();
 const { teamPokemons } = storeToRefs(teamStore);
 
@@ -102,6 +102,9 @@ onMounted(() => {
   <div v-if="isLoading" class="mt-6 flex items-center justify-center">
     <CustomSpinner color="primary" class="mr-3" />
     <p>Cargando...</p>
+  </div>
+  <div v-if="maxPokemonLimit" class="mt-6 flex items-center justify-center">
+    <p class="text-red-500">Ya no hay más pokémons disponibles</p>
   </div>
   <button
     v-if="showScrollButton"

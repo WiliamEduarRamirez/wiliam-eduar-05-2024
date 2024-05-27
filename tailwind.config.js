@@ -36,6 +36,7 @@ export default {
         md: '480px',
         lg: '1024px',
         xl: '1440px',
+
       },
       padding: {
         'spacing-sm-x': '10px',

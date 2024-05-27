@@ -13,6 +13,7 @@ export function usePokemonStore(
     'pokemon',
     () => {
       const pokemons: Ref<Pokemon[]> = ref([]);
+      const maxPokemonLimit = ref(false);
 
       async function listPokemons() {
         try {
@@ -25,10 +26,15 @@ export function usePokemonStore(
 
       async function loadMorePokemons() {
         try {
+          if (maxPokemonLimit.value) return;
           const results = await getPokemons(pokemonRepository)(
             ENV.POKEMON_PAGE_LIMIT,
             pokemons.value.length,
           );
+          if (!results.length) {
+            maxPokemonLimit.value = true;
+            return;
+          }
           pokemons.value = [...pokemons.value, ...results];
         } catch (e) {
           throw e;
@@ -37,6 +43,7 @@ export function usePokemonStore(
 
       return {
         pokemons,
+        maxPokemonLimit,
         listPokemons,
         loadMorePokemons,
       };

@@ -34,7 +34,7 @@ const pokemonsNames = computed(() => teamPokemons.value.map(pokemon => pokemon.n
         <template #default> Agregar mas pokemones </template>
       </CustomButton>
     </template>
-    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 place-items-center">
       <template v-for="pokemon in teamPokemons">
         <TeamCard :pokemon="pokemon" :remove-from-team="() => teamStore.removePokemon(pokemon)" />
       </template>
